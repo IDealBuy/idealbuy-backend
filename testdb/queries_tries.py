@@ -1,3 +1,12 @@
+walmart = Supermarket(super_name='Walmart', super_mail='wmatwalmart.com',latitude=16.34285,longitude=72.536986,super_photo = 'abc.flickr.com',role = 'mkt')
+walmart.save()
+
+admin = Boss(admin_name="boss", mail="boss@boss.com",admin_photo='cde.flickr.com', role='adm')
+admin.save()
+
+usuario1 = User(username='usuario1', user_mail='usuario1@gmail.com',user_photo = 'usr.flickr.com',role = 'usr')
+usuario1.save()
+
 walmart = Supermarket(super_name = 'Walmart')
 soriana = Supermarket(super_name = 'Soriana')
 superama = Supermarket(super_name = 'Superama')
