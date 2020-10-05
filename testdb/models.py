@@ -1,7 +1,38 @@
 from django.db import models
-# Create your models here.
+
+class Boss(models.Model):
+    admin_name = models.CharField(max_length=100)
+    mail = models.EmailField(max_length=100)
+
+    admin_photo = models.CharField(max_length=255)
+    role = models.CharField(max_length=3)
+
+    active = models.BooleanField(default = True)
+
+    def __str__(self):
+        return self.admin_name
+    
+
+class User(models.Model):
+    username = models.CharField(max_length = 40)
+    user_mail = models.EmailField(max_length = 100)
+    user_photo = models.CharField(max_length = 255)
+    role = models.CharField(max_length=3)
+    user_firebase = models.CharField(max_length=255, default="ln3nj45k")
+
+    active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.username
+
 class Supermarket(models.Model):
-    super_name = models.CharField(max_length=100)
+    super_name = models.CharField(max_length=40)
+    super_mail = models.EmailField(max_length = 100)
+
+    latitude = models.DecimalField(max_digits=12, decimal_places=9)
+    longitude = models.DecimalField(max_digits=12, decimal_places=9)  
+    super_photo = models.CharField(max_length = 255)
+    role = models.CharField(max_length=3)
+
     active = models.BooleanField(default=True)
     def __str__(self):
         return self.super_name
@@ -9,17 +40,21 @@ class Supermarket(models.Model):
 
 class Products(models.Model):
     product_name = models.CharField(max_length=255)
+    product_description = models.TextField(default='Descripcion no disponible')
     product_unit = models.CharField(max_length = 10)
-    category = models.IntegerField()
+    product_photo = models.CharField(max_length=255, default='go.google.com')
+    category = models.CharField(max_length = 20,blank=False)
 
+    #active = models.BooleanField(default=True)
     def __str__(self):
         return self.product_name
     
 
 class Prices(models.Model):
-    price = models.IntegerField(default=50)
-    products_id = models.ForeignKey(Products, on_delete=models.CASCADE)
-    super_id = models.ForeignKey(Supermarket, on_delete=models.CASCADE)
+    products_id = models.ForeignKey(Products, on_delete=models.PROTECT)
+    super_id = models.ForeignKey(Supermarket, on_delete=models.PROTECT)
+    price = models.IntegerField(blank=False)
+
 
     def __int__(self):
         return self.price
